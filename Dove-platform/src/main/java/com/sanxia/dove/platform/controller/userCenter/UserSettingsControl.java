@@ -70,6 +70,20 @@ public class UserSettingsControl extends PlatformBaseController {
         return "userCenter/profile";
     }
 
+    /**
+     *   userCenter email page
+     * @return email页面
+     */
+    @RequestMapping("/email")
+    public String toUserCenterEmailPage(){ return "userCenter/email"; }
+
+    /**
+     *  userCenter notifications page
+     * @return notifications 页面
+     */
+    @RequestMapping("/notifications")
+    public String toUserCenterNotificationsPage(){ return "userCenter/notifications"; }
+
     @RequestMapping("/account/updatePwd")
     @ResponseBody
     public MapDto UpdatePwd(@RequestParam(value = "old_password", required = false ) String old_password,
@@ -94,37 +108,12 @@ public class UserSettingsControl extends PlatformBaseController {
                                 @RequestParam(value = "user_profile_localtion") String location){
         MapDto mapDto = new MapDto();
         User currentuser = getUser();
-       /* User updatingUser = new User();
-        updatingUser.setId(currentuser.getId());
-        //System.out.println(fullName + " - "  + remark + "- " + url + " - " +  company + "- " + location );
-        if (fullName != null){
-            updatingUser.setFullName(fullName);
-        }else{
-            updatingUser.setFullName(currentuser.getFullName());
-        }
-        if (url != null){
-            updatingUser.setFullName(url);
-        }else{
-            updatingUser.setFullName(currentuser.getUrl());
-        }
-        if (company != null){
-            updatingUser.setFullName(company);
-        }else{
-            updatingUser.setFullName(currentuser.getCompany());
-        }
-        if (location != null){
-            updatingUser.setFullName(location);
-        }else{
-            updatingUser.setFullName(currentuser.getLocation());
-        }*/
         currentuser.setFullName(fullName);
         currentuser.setRemark(remark);
         currentuser.setUrl(url);
         currentuser.setCompany(company);
         currentuser.setLocation(location);
-        System.out.println("updatingUser:  " + currentuser.getId() + currentuser.getUsername() + currentuser.getFullName());
         mapDto = userService.saveOrUpdate(currentuser);
-        System.out.println("mapDto的结果是：" + mapDto);
         return  mapDto;
     }
 
